@@ -46,4 +46,7 @@ tasks.named<JavaExec>("run") {
     localProperties.getProperty("database.url")?.let { url ->
         environment("JDBC_DATABASE_URL", url)
     }
+    localProperties.getProperty("admin.emails")?.let { emails ->
+        environment("ADMIN_EMAILS", emails)
+    }
 }
