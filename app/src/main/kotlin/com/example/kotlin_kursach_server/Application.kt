@@ -1,5 +1,8 @@
 package com.example.kotlin_kursach_server
 
+import com.example.kotlin_kursach_server.db.DatabaseConfig
+import com.example.kotlin_kursach_server.db.DatabaseFactory
+import com.example.kotlin_kursach_server.db.InstitutionSeeder
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -14,6 +17,12 @@ fun main() {
 }
 
 fun Application.module() {
+    val jdbcUrl = DatabaseConfig.resolveJdbcUrl()
+    DatabaseFactory.init(jdbcUrl)
+    DatabaseFactory.createTables()
+    InstitutionSeeder.seedIfEmpty()
+    Runtime.getRuntime().addShutdownHook(Thread { DatabaseFactory.close() })
+
     val repository = InstitutionRepository()
 
     install(ContentNegotiation) {
