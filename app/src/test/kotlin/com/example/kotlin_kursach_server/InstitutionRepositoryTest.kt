@@ -11,7 +11,9 @@ import org.junit.Test
 
 class InstitutionRepositoryTest {
 
-    private val repository = InstitutionRepository()
+    private val reviewRepository = ReviewRepository()
+    private val photoRepository = InstitutionPhotoRepository()
+    private val repository = InstitutionRepository(reviewRepository, photoRepository)
 
     @Before
     fun setUp() {
@@ -39,5 +41,39 @@ class InstitutionRepositoryTest {
     @Test
     fun getById_unknownId_returnsNull() {
         assertNull(repository.getById("unknown"))
+    }
+
+    @Test
+    fun update_existingId_changesFields() {
+        val original = repository.getById("1")!!
+        val updated = repository.update(
+            "1",
+            CreateInstitutionRequest(
+                name = "Обновлённое название",
+                type = original.type,
+                city = original.city,
+                address = original.address,
+                description = original.description,
+                phone = original.phone,
+                website = original.website,
+            ),
+        )
+        assertNotNull(updated)
+        assertEquals("Обновлённое название", updated?.name)
+    }
+
+    @Test
+    fun delete_existingId_removesInstitution() {
+        val created = repository.create(
+            CreateInstitutionRequest(
+                name = "Временное",
+                type = InstitutionType.SCHOOL,
+                city = "Минск",
+                address = "ул. Тест",
+                description = "Тест",
+            ),
+        )
+        assertTrue(repository.delete(created.id))
+        assertNull(repository.getById(created.id))
     }
 }

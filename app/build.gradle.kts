@@ -30,10 +30,12 @@ dependencies {
     implementation(libs.hikaricp)
     testImplementation(libs.h2)
     testImplementation(libs.junit)
+    testImplementation("io.ktor:ktor-server-test-host-jvm:3.1.3")
 }
 
 tasks.named<Test>("test") {
     useJUnit()
+    environment("ADMIN_EMAILS", "admin@test.com")
 }
 
 tasks.named<JavaExec>("run") {
@@ -48,5 +50,8 @@ tasks.named<JavaExec>("run") {
     }
     localProperties.getProperty("admin.emails")?.let { emails ->
         environment("ADMIN_EMAILS", emails)
+    }
+    localProperties.getProperty("public.base.url")?.let { url ->
+        environment("PUBLIC_BASE_URL", url)
     }
 }

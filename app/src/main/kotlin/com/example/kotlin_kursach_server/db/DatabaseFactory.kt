@@ -25,7 +25,7 @@ object DatabaseFactory {
 
     fun createTables() {
         transaction {
-            SchemaUtils.create(InstitutionsTable)
+            SchemaUtils.create(InstitutionsTable, ReviewsTable, InstitutionPhotosTable)
         }
     }
 
