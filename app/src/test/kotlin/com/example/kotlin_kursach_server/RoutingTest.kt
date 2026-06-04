@@ -54,7 +54,7 @@ class RoutingTest {
         val response = client.post("/institutions") {
             contentType(ContentType.Application.Json)
             setBody(
-                """{"name":"Новое","type":"SCHOOL","city":"Минск","address":"ул. 1","description":"Описание"}""",
+                """{"name":"Новое","type":"SCHOOL","orientations":["TECHNICAL"],"city":"Минск","address":"ул. 1","description":"Описание"}""",
             )
         }
         assertEquals(HttpStatusCode.Forbidden, response.status)
@@ -67,7 +67,7 @@ class RoutingTest {
             contentType(ContentType.Application.Json)
             header("X-User-Email", "admin@test.com")
             setBody(
-                """{"name":"Тестовая школа","type":"SCHOOL","city":"Минск","address":"ул. 1","description":"Описание"}""",
+                """{"name":"Тестовая школа","type":"SCHOOL","orientations":["HUMANITARIAN"],"city":"Минск","address":"ул. 1","description":"Описание"}""",
             )
         }
         assertEquals(HttpStatusCode.Created, response.status)

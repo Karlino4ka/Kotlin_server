@@ -1,5 +1,6 @@
 package com.example.kotlin_kursach_server
 
+import com.example.kotlin_kursach_server.InstitutionOrientation
 import com.example.kotlin_kursach_server.db.DatabaseTestSupport
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -51,6 +52,7 @@ class InstitutionRepositoryTest {
             CreateInstitutionRequest(
                 name = "Обновлённое название",
                 type = original.type,
+                orientations = original.orientations,
                 city = original.city,
                 address = original.address,
                 description = original.description,
@@ -68,6 +70,7 @@ class InstitutionRepositoryTest {
             CreateInstitutionRequest(
                 name = "Временное",
                 type = InstitutionType.SCHOOL,
+                orientations = listOf(InstitutionOrientation.TECHNICAL),
                 city = "Минск",
                 address = "ул. Тест",
                 description = "Тест",

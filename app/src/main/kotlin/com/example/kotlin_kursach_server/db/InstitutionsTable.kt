@@ -6,6 +6,7 @@ object InstitutionsTable : Table("institutions") {
     val id = varchar("id", 36)
     val name = varchar("name", 255)
     val type = varchar("type", 32)
+    val orientations = varchar("orientations", 512).default("")
     val city = varchar("city", 128)
     val address = varchar("address", 512)
     val description = text("description")

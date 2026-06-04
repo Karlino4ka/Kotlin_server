@@ -27,6 +27,20 @@ object DatabaseFactory {
         transaction {
             SchemaUtils.create(InstitutionsTable, ReviewsTable, InstitutionPhotosTable)
         }
+        migrateSchema()
+    }
+
+    fun migrateSchema() {
+        transaction {
+            runCatching {
+                val jdbc = connection.connection as java.sql.Connection
+                jdbc.createStatement().use { statement ->
+                    statement.execute(
+                        "ALTER TABLE institutions ADD COLUMN orientations VARCHAR(512) DEFAULT ''",
+                    )
+                }
+            }
+        }
     }
 
     fun close() {

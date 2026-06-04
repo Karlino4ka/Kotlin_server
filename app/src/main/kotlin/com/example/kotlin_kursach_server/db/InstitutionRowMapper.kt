@@ -4,10 +4,13 @@ import com.example.kotlin_kursach_server.Institution
 import com.example.kotlin_kursach_server.InstitutionType
 import org.jetbrains.exposed.sql.ResultRow
 
+import com.example.kotlin_kursach_server.db.toOrientations
+
 fun ResultRow.toInstitution(): Institution = Institution(
     id = this[InstitutionsTable.id],
     name = this[InstitutionsTable.name],
     type = InstitutionType.valueOf(this[InstitutionsTable.type]),
+    orientations = this[InstitutionsTable.orientations].toOrientations(),
     city = this[InstitutionsTable.city],
     address = this[InstitutionsTable.address],
     description = this[InstitutionsTable.description],

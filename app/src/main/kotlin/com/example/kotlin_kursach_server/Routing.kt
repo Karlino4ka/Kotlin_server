@@ -214,6 +214,12 @@ private fun validateInstitutionRequest(request: CreateInstitutionRequest): Strin
     if (request.name.isBlank() || request.city.isBlank()) {
         return "Название и город обязательны"
     }
+    if (request.orientations.isEmpty()) {
+        return "Укажите хотя бы одну направленность"
+    }
+    if (request.orientations.distinct().size != request.orientations.size) {
+        return "Направленности не должны повторяться"
+    }
     return null
 }
 

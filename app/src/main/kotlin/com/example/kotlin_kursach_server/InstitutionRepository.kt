@@ -2,6 +2,7 @@ package com.example.kotlin_kursach_server
 
 import com.example.kotlin_kursach_server.db.InstitutionsTable
 import com.example.kotlin_kursach_server.db.toInstitution
+import com.example.kotlin_kursach_server.db.toStorageString
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.SortOrder
 import org.jetbrains.exposed.sql.deleteWhere
@@ -51,6 +52,7 @@ class InstitutionRepository(
             it[InstitutionsTable.id] = id
             it[name] = request.name.trim()
             it[type] = request.type.name
+            it[orientations] = request.orientations.toStorageString()
             it[city] = request.city.trim()
             it[address] = request.address.trim()
             it[description] = request.description.trim()
@@ -64,6 +66,7 @@ class InstitutionRepository(
         val updated = InstitutionsTable.update({ InstitutionsTable.id eq id }) {
             it[name] = request.name.trim()
             it[type] = request.type.name
+            it[orientations] = request.orientations.toStorageString()
             it[city] = request.city.trim()
             it[address] = request.address.trim()
             it[description] = request.description.trim()

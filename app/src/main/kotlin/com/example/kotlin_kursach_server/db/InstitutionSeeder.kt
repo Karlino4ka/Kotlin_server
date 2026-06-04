@@ -1,6 +1,7 @@
 package com.example.kotlin_kursach_server.db
 
 import com.example.kotlin_kursach_server.Institution
+import com.example.kotlin_kursach_server.InstitutionOrientation
 import com.example.kotlin_kursach_server.InstitutionType
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.selectAll
@@ -13,6 +14,7 @@ object InstitutionSeeder {
             id = "1",
             name = "Московский государственный университет",
             type = InstitutionType.UNIVERSITY,
+            orientations = listOf(InstitutionOrientation.HUMANITARIAN, InstitutionOrientation.TECHNICAL),
             city = "Москва",
             address = "ул. Ленинские Горы, 1",
             description = "Ведущий классический университет России.",
@@ -23,6 +25,7 @@ object InstitutionSeeder {
             id = "2",
             name = "Санкт-Петербургский политехнический университет",
             type = InstitutionType.UNIVERSITY,
+            orientations = listOf(InstitutionOrientation.TECHNICAL),
             city = "Санкт-Петербург",
             address = "Политехническая ул., 29",
             description = "Технический университет с инженерными и IT-направлениями.",
@@ -33,6 +36,7 @@ object InstitutionSeeder {
             id = "3",
             name = "Колледж информационных технологий",
             type = InstitutionType.COLLEGE,
+            orientations = listOf(InstitutionOrientation.TECHNICAL),
             city = "Казань",
             address = "ул. Баумана, 15",
             description = "Среднее профессиональное образование в сфере IT.",
@@ -42,6 +46,7 @@ object InstitutionSeeder {
             id = "4",
             name = "Лицей № 153",
             type = InstitutionType.SCHOOL,
+            orientations = listOf(InstitutionOrientation.TECHNICAL, InstitutionOrientation.HUMANITARIAN),
             city = "Москва",
             address = "ул. Вавилова, 57",
             description = "Профильный лицей с углублённым изучением математики и физики.",
@@ -51,6 +56,7 @@ object InstitutionSeeder {
             id = "5",
             name = "Новосибирский государственный университет",
             type = InstitutionType.UNIVERSITY,
+            orientations = listOf(InstitutionOrientation.TECHNICAL, InstitutionOrientation.MEDICAL),
             city = "Новосибирск",
             address = "ул. Пирогова, 1",
             description = "Крупный научно-образовательный центр Сибири.",
@@ -71,6 +77,7 @@ object InstitutionSeeder {
             it[id] = institution.id
             it[name] = institution.name
             it[type] = institution.type.name
+            it[orientations] = institution.orientations.toStorageString()
             it[city] = institution.city
             it[address] = institution.address
             it[description] = institution.description

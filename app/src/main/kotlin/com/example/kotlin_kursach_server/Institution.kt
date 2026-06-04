@@ -7,6 +7,7 @@ data class Institution(
     val id: String,
     val name: String,
     val type: InstitutionType,
+    val orientations: List<InstitutionOrientation> = emptyList(),
     val city: String,
     val address: String,
     val description: String,

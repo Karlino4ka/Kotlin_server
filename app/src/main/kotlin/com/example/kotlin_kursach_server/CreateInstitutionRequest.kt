@@ -6,6 +6,7 @@ import kotlinx.serialization.Serializable
 data class CreateInstitutionRequest(
     val name: String,
     val type: InstitutionType,
+    val orientations: List<InstitutionOrientation> = emptyList(),
     val city: String,
     val address: String,
     val description: String,
